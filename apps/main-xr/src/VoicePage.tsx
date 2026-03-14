@@ -14,13 +14,18 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import "@google/model-viewer";
 import { initScene } from "@webspatial/react-sdk";
 import { isXRMode } from "./xrMode";
 
 const ELEVENLABS_API_KEY = (import.meta as any).env?.VITE_ELEVENLABS_API_KEY || "";
 const HISTORY_WINDOW_NAME = "elevenlabs-history";
+const TRAILER_WINDOW_NAME = "windtalkers-trailer";
+const BOOKS_WINDOW_NAME = "monument-valley-books";
+const BOOKS_URL = "https://www.amazon.com/s?k=monument+valley+book";
 const BROADCAST_CHANNEL = "elevenlabs-transcripts";
 const STORAGE_KEY = "elevenlabs-transcript-history";
+const SHEEP_MODEL_SRC = "/SheepBox.glb";
 
 async function transcribeAudio(apiKey: string, audioBlob: Blob): Promise<string> {
   const form = new FormData();
@@ -65,6 +70,18 @@ export default function VoicePage() {
       defaultSize: { width: 500, height: 700 },
     }));
     window.open("/history", HISTORY_WINDOW_NAME);
+
+    initScene(TRAILER_WINDOW_NAME, (cfg) => ({
+      ...cfg,
+      defaultSize: { width: 960, height: 620 },
+    }));
+    window.open("/trailer", TRAILER_WINDOW_NAME);
+
+    initScene(BOOKS_WINDOW_NAME, (cfg) => ({
+      ...cfg,
+      defaultSize: { width: 720, height: 900 },
+    }));
+    window.open(BOOKS_URL, BOOKS_WINDOW_NAME);
 
     return () => {
       channelRef.current?.close();
@@ -243,7 +260,32 @@ export default function VoicePage() {
 
   // XR: only show the mic panel — history is a separate scene
   if (isXRMode) {
-    return <div className="voice-page-root">{micPanel}</div>;
+    return (
+      <div className="voice-page-root" enable-xr-monitor>
+        <div
+          enable-xr
+          className="sheep-companion"
+          style={
+            {
+              "--xr-back": "140",
+            } as React.CSSProperties
+          }
+        >
+          <model-viewer
+            className="sheep-model"
+            src={SHEEP_MODEL_SRC}
+            auto-rotate
+            camera-controls
+            disable-zoom
+            interaction-prompt="none"
+            shadow-intensity="1"
+            exposure="1.1"
+          />
+        </div>
+
+        {micPanel}
+      </div>
+    );
   }
 
   // Desktop: mic panel + inline history side by side

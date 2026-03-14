@@ -9,10 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/model-viewer": "^4.2.0",
     "@webspatial/core-sdk": "latest",
     "@webspatial/react-sdk": "latest",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "three": "^0.182.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.5",
