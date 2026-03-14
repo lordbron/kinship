@@ -8,6 +8,7 @@ import react from "@vitejs/plugin-react";
 // can reach it via http://10.0.2.2:5173/
 export default defineConfig({
   plugins: [react()],
+  envDir: "../..",
   server: {
     host: true,
   },
