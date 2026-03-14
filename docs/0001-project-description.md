@@ -8,3 +8,4 @@ As a VR/MR user, I want a virtual companion present in my immersive environment 
 
 ADR Decision Summary: 
 To bypass strict OS-level privacy locks and browser sandboxing on headsets like Apple Vision Pro and Pico, we will build the AI companion using WebSpatial and WebXR as a centralized, "All-in-One Spatial Workspace" rather than a system-wide background utility. By rendering supported web tools and media (such as YouTube or custom document editors) directly within our application's DOM, the AI successfully gains the context needed to interact with the user's current task. Consequently, engineering and stakeholders must align on the strict limitation that the companion's awareness is confined entirely to our web app, explicitly excluding native headset games and DRM-locked streaming services like Netflix.
+
