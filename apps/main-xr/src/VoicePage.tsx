@@ -14,14 +14,13 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import "@google/model-viewer";
 import { initScene } from "@webspatial/react-sdk";
+import SheepCompanion from "./SheepCompanion";
 import { isXRMode } from "./xrMode";
 
 const ELEVENLABS_API_KEY = (import.meta as any).env?.VITE_ELEVENLABS_API_KEY || "";
 const HISTORY_WINDOW_NAME = "elevenlabs-history";
-const TRAILER_WINDOW_NAME = "windtalkers-trailer";
-const BOOKS_WINDOW_NAME = "monument-valley-books";
+const TRAILER_SRC = "/windtalkers_trailer.mp4";
 const BOOKS_URL = "https://www.amazon.com/s?k=monument+valley+book";
 const BROADCAST_CHANNEL = "elevenlabs-transcripts";
 const STORAGE_KEY = "elevenlabs-transcript-history";
@@ -70,18 +69,6 @@ export default function VoicePage() {
       defaultSize: { width: 500, height: 700 },
     }));
     window.open("/history", HISTORY_WINDOW_NAME);
-
-    initScene(TRAILER_WINDOW_NAME, (cfg) => ({
-      ...cfg,
-      defaultSize: { width: 960, height: 620 },
-    }));
-    window.open("/trailer", TRAILER_WINDOW_NAME);
-
-    initScene(BOOKS_WINDOW_NAME, (cfg) => ({
-      ...cfg,
-      defaultSize: { width: 720, height: 900 },
-    }));
-    window.open(BOOKS_URL, BOOKS_WINDOW_NAME);
 
     return () => {
       channelRef.current?.close();
@@ -264,23 +251,72 @@ export default function VoicePage() {
       <div className="voice-page-root" enable-xr-monitor>
         <div
           enable-xr
-          className="sheep-companion"
+          className="xr-trailer-panel"
           style={
             {
-              "--xr-back": "140",
+              "--xr-back": "80",
             } as React.CSSProperties
           }
         >
-          <model-viewer
-            className="sheep-model"
-            src={SHEEP_MODEL_SRC}
-            auto-rotate
-            camera-controls
-            disable-zoom
-            interaction-prompt="none"
-            shadow-intensity="1"
-            exposure="1.1"
-          />
+          <div className="trailer-header">
+            <h2 className="trailer-title">Windtalkers Trailer</h2>
+          </div>
+          <div className="trailer-player-shell" enable-xr-monitor>
+            <video
+              className="trailer-video"
+              src={TRAILER_SRC}
+              controls
+              playsInline
+              preload="metadata"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+
+        <div
+          enable-xr
+          className="xr-books-panel"
+          style={
+            {
+              "--xr-back": "70",
+            } as React.CSSProperties
+          }
+        >
+          <div className="books-header">
+            <div>
+              <h2 className="books-title">Monument Valley Books</h2>
+              <p className="books-subtitle">Browse Amazon while the trailer plays.</p>
+            </div>
+            <a
+              className="books-open-link"
+              href={BOOKS_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open Amazon
+            </a>
+          </div>
+          <div className="books-frame-shell" enable-xr-monitor>
+            <iframe
+              className="books-frame"
+              src={BOOKS_URL}
+              title="Amazon Monument Valley books"
+            />
+          </div>
+        </div>
+
+        <div
+          enable-xr
+          className="sheep-companion"
+          style={
+            {
+              "--xr-back": "110",
+            } as React.CSSProperties
+          }
+        >
+          <div className="sheep-companion-label">Walking Companion</div>
+          <SheepCompanion src={SHEEP_MODEL_SRC} />
         </div>
 
         {micPanel}

@@ -34,8 +34,8 @@
   ],
   "xr_main_scene": {
     "default_size": {
-      "width": 600,
-      "height": 800
+      "width": 1440,
+      "height": 900
     }
   }
 }

@@ -4,6 +4,7 @@ import "./index.css";
 import VoicePage from "./VoicePage";
 import HistoryPage from "./HistoryPage";
 import TrailerPage from "./TrailerPage";
+import BooksPage from "./BooksPage";
 import { isXRMode } from "./xrMode";
 
 // Apply WebSpatial class only when actually running as a standalone PWA
@@ -14,9 +15,10 @@ if (isXRMode) {
 
 const isHistory = window.location.pathname === "/history";
 const isTrailer = window.location.pathname === "/trailer";
+const isBooks = window.location.pathname === "/books";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    {isHistory ? <HistoryPage /> : isTrailer ? <TrailerPage /> : <VoicePage />}
+    {isHistory ? <HistoryPage /> : isTrailer ? <TrailerPage /> : isBooks ? <BooksPage /> : <VoicePage />}
   </StrictMode>,
 );
