@@ -1,4 +1,4 @@
-.PHONY: client-install client
+.PHONY: client-install client client-public
 
 client-install:
 	brew install android-platform-tools
@@ -8,3 +8,6 @@ client-install:
 client:
 	adb reverse tcp:5173 tcp:5173
 	cd apps/main-xr && npm run dev
+
+client-public:
+	ngrok http 5173

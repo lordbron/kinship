@@ -11,5 +11,6 @@ export default defineConfig({
   envDir: "../..",
   server: {
     host: true,
+    allowedHosts: true,
   },
 });
