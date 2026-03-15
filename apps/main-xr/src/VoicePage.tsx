@@ -5,6 +5,7 @@
  *   - Transparent background via html.is-spatial
  *   - "ElevenLabs" title + circular mic button only
  *   - Opens /history as a second WebSpatial scene
+ *   - Opens /companion as a separate volume scene
  *   - Syncs transcripts via BroadcastChannel + localStorage
  *
  * Desktop browser:
@@ -19,6 +20,7 @@ import { isXRMode } from "./xrMode";
 
 const ELEVENLABS_API_KEY = (import.meta as any).env?.VITE_ELEVENLABS_API_KEY || "";
 const HISTORY_WINDOW_NAME = "elevenlabs-history";
+const COMPANION_WINDOW_NAME = "elevenlabs-companion";
 const TRAILER_SRC = "/windtalkers_trailer.mp4";
 const BOOKS_URL = "https://www.amazon.com/s?k=monument+valley+book";
 const BROADCAST_CHANNEL = "elevenlabs-transcripts";
@@ -55,7 +57,7 @@ export default function VoicePage() {
   const channelRef = useRef<BroadcastChannel | null>(null);
   const feedRef = useRef<HTMLDivElement>(null);
 
-  // XR only: open history as a separate spatial scene
+  // XR only: open history + companion as separate spatial scenes
   useEffect(() => {
     if (!isXRMode) return;
 
@@ -66,6 +68,20 @@ export default function VoicePage() {
       defaultSize: { width: 500, height: 700 },
     }));
     window.open("/history", HISTORY_WINDOW_NAME);
+
+    initScene(
+      COMPANION_WINDOW_NAME,
+      (cfg) => ({
+        ...cfg,
+        defaultSize: {
+          width: "0.56m",
+          height: "0.72m",
+          depth: "0.56m",
+        },
+      }),
+      { type: "volume" },
+    );
+    window.open("/companion", COMPANION_WINDOW_NAME);
 
     return () => {
       channelRef.current?.close();
