@@ -46,41 +46,43 @@ export default function HistoryPage() {
 
   return (
     <div className="history-page-root">
-      <div className="history-header" enable-xr>
-        <h2 className="history-title">Transcript History</h2>
-        {transcripts.length > 0 && (
-          <button
-            className="history-clear-btn"
-            onClick={() => {
-              setTranscripts([]);
-              try { localStorage.removeItem(STORAGE_KEY); } catch {}
-            }}
-          >
-            Clear
-          </button>
+      <div className="history-scene-panel">
+        <div className="history-header" enable-xr>
+          <h2 className="history-title">Transcript History</h2>
+          {transcripts.length > 0 && (
+            <button
+              className="history-clear-btn"
+              onClick={() => {
+                setTranscripts([]);
+                try { localStorage.removeItem(STORAGE_KEY); } catch {}
+              }}
+            >
+              Clear
+            </button>
+          )}
+        </div>
+
+        {transcripts.length === 0 ? (
+          <div className="history-empty">
+            <p>Transcripts will appear here</p>
+          </div>
+        ) : (
+          <div ref={feedRef} className="history-feed" enable-xr-monitor>
+            {transcripts.map((t) => (
+              <div key={t.id} enable-xr className="history-card">
+                <span className="history-card-time">
+                  {new Date(t.ts).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  })}
+                </span>
+                <p className="history-card-text">{t.text}</p>
+              </div>
+            ))}
+          </div>
         )}
       </div>
-
-      {transcripts.length === 0 ? (
-        <div className="history-empty">
-          <p>Transcripts will appear here</p>
-        </div>
-      ) : (
-        <div ref={feedRef} className="history-feed" enable-xr-monitor>
-          {transcripts.map((t) => (
-            <div key={t.id} enable-xr className="history-card">
-              <span className="history-card-time">
-                {new Date(t.ts).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  second: "2-digit",
-                })}
-              </span>
-              <p className="history-card-text">{t.text}</p>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
