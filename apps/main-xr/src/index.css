@@ -17,6 +17,114 @@ body {
   min-height: 100svh;
 }
 
+a {
+  color: inherit;
+}
+
+/* ── Scene launcher ───────────────────────────────────────────────────────── */
+
+.launcher-page-root {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.launcher-page-root--xr {
+  background: transparent;
+}
+
+.launcher-content {
+  width: min(100%, 1100px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.launcher-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.launcher-kicker {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.launcher-title {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.launcher-subtitle {
+  margin: 0;
+  max-width: 760px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.launcher-scene-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.launcher-scene-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-height: 220px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.launcher-scene-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.2);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05)),
+    rgba(255, 255, 255, 0.05);
+}
+
+.launcher-scene-label {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.launcher-scene-title {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.1;
+}
+
+.launcher-scene-description {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.72);
+}
+
 /* ── WebSpatial transparent window (XR/standalone only) ─────────────────── */
 /* html.is-spatial is added by main.tsx via JS only when running as a PWA.
    In regular browsers this block never applies. */
@@ -27,6 +135,10 @@ html.is-spatial {
 
   body {
     background-color: transparent;
+  }
+
+  .launcher-scene-card {
+    --xr-background-material: translucent;
   }
 }
 
@@ -486,6 +598,10 @@ html.is-spatial {
 }
 
 @media (max-width: 900px) {
+  .launcher-page-root {
+    padding: 1.25rem;
+  }
+
   .voice-page-desktop {
     flex-direction: column;
   }
