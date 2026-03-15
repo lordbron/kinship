@@ -1,4 +1,4 @@
-const AMAZON_BOOKS_URL = "https://www.amazon.com/s?k=monument+valley+book";
+const POWELLS_BOOKS_URL = "https://www.powells.com/books/search?query=MONUMENT+VALLEY&page=1";
 
 export default function BooksPage() {
   return (
@@ -7,23 +7,15 @@ export default function BooksPage() {
         <div className="books-header">
           <div>
             <h2 className="books-title">Monument Valley Books</h2>
-            <p className="books-subtitle">In-app browsing panel for the Amazon search results.</p>
+            <p className="books-subtitle">In-app browsing panel for the book search results.</p>
           </div>
-          <a
-            className="books-open-link"
-            href={AMAZON_BOOKS_URL}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Open Amazon
-          </a>
         </div>
 
         <div className="books-frame-shell" enable-xr-monitor>
           <iframe
             className="books-frame"
-            src={AMAZON_BOOKS_URL}
-            title="Amazon Monument Valley books"
+            src={POWELLS_BOOKS_URL}
+            title="Powell's Monument Valley books"
           />
         </div>
       </div>
