@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import VoicePage from "./VoicePage";
-import HistoryPage from "./HistoryPage";
 import TrailerPage from "./TrailerPage";
 import BooksPage from "./BooksPage";
 import CompanionPage from "./CompanionPage";
@@ -15,7 +14,6 @@ if (isXRMode) {
   document.documentElement.classList.add("is-spatial");
 }
 
-const isHistory = window.location.pathname === "/history";
 const isTrailer = window.location.pathname === "/trailer";
 const isBooks = window.location.pathname === "/books";
 const isCompanion = window.location.pathname === "/companion";
@@ -23,9 +21,7 @@ const isMonumentValley = window.location.pathname === "/monument-valley";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    {isHistory ? (
-      <HistoryPage />
-    ) : isTrailer ? (
+    {isTrailer ? (
       <TrailerPage />
     ) : isBooks ? (
       <BooksPage />

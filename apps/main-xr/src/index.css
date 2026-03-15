@@ -17,6 +17,114 @@ body {
   min-height: 100svh;
 }
 
+a {
+  color: inherit;
+}
+
+/* ── Scene launcher ───────────────────────────────────────────────────────── */
+
+.launcher-page-root {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.launcher-page-root--xr {
+  background: transparent;
+}
+
+.launcher-content {
+  width: min(100%, 1100px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.launcher-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.launcher-kicker {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.launcher-title {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.launcher-subtitle {
+  margin: 0;
+  max-width: 760px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.launcher-scene-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.launcher-scene-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-height: 220px;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.03);
+  text-decoration: none;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.launcher-scene-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.2);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05)),
+    rgba(255, 255, 255, 0.05);
+}
+
+.launcher-scene-label {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.launcher-scene-title {
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.1;
+}
+
+.launcher-scene-description {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.72);
+}
+
 /* ── WebSpatial transparent window (XR/standalone only) ─────────────────── */
 /* html.is-spatial is added by main.tsx via JS only when running as a PWA.
    In regular browsers this block never applies. */
@@ -27,6 +135,10 @@ html.is-spatial {
 
   body {
     background-color: transparent;
+  }
+
+  .launcher-scene-card {
+    --xr-background-material: translucent;
   }
 }
 
@@ -254,14 +366,33 @@ html.is-spatial {
   border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.desktop-side-panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.desktop-companion-panel {
+  min-height: 420px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
 .desktop-history-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
+  padding: 1.25rem;
   gap: 1rem;
   min-width: 0;
-  max-width: 600px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 /* ── Shared history styles (desktop inline + XR HistoryPage) ─────────────── */
@@ -364,6 +495,12 @@ html.is-spatial {
   background: transparent;
 }
 
+.companion-page-root--embedded {
+  min-height: auto;
+  height: 100%;
+  padding: 1rem 1rem 0.5rem;
+}
+
 .monument-page-root {
   min-height: 100svh;
   padding: 1rem;
@@ -377,6 +514,10 @@ html.is-spatial {
   justify-content: space-between;
   min-height: calc(100svh - 2rem);
   gap: 1rem;
+}
+
+.companion-volume--embedded {
+  min-height: 100%;
 }
 
 .monument-volume {
@@ -407,11 +548,41 @@ html.is-spatial {
   color: #ffffff;
 }
 
+.companion-status-text {
+  margin: 0.55rem 0 0;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.companion-error-text {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: #ffd6d6;
+}
+
 .sheep-canvas-shell {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
+  border-radius: 22px;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    opacity 180ms ease;
+}
+
+.sheep-canvas-shell--interactive {
+  cursor: pointer;
+}
+
+.sheep-canvas-shell--interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+.sheep-canvas-shell--disabled {
+  opacity: 0.72;
 }
 
 .sheep-model {
@@ -424,6 +595,38 @@ html.is-spatial {
 .sheep-model canvas {
   width: 100%;
   height: 100%;
+}
+
+@media (max-width: 900px) {
+  .launcher-page-root {
+    padding: 1.25rem;
+  }
+
+  .voice-page-desktop {
+    flex-direction: column;
+  }
+
+  .voice-page-desktop .voice-mic-panel {
+    flex: none;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .desktop-side-panel {
+    padding-top: 0;
+  }
+
+  .desktop-companion-panel {
+    min-height: 360px;
+  }
+
+  .desktop-history-panel {
+    min-height: 280px;
+  }
+
+  .sheep-model {
+    min-height: 280px;
+  }
 }
 
 /* ── XR TrailerPage layout ───────────────────────────────────────────────── */

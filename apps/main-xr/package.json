@@ -9,11 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@openai/agents-realtime": "^0.7.1",
     "@webspatial/core-sdk": "latest",
     "@webspatial/react-sdk": "latest",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "three": "^0.182.0"
+    "three": "^0.182.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/react": "^18.3.5",

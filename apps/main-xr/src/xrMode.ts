@@ -5,10 +5,10 @@
  *
  * When running as standalone, we:
  *   - Add the `is-spatial` class to <html> so WebSpatial CSS applies
- *   - Open transcript history as a separate WebSpatial scene
+ *   - Launch the available experiences as separate WebSpatial scenes
  *
  * When running in a regular browser:
  *   - Show a dark background
- *   - Render mic button + history inline on one page
+ *   - Render a launcher page with links to each experience
  */
 export const isXRMode = window.matchMedia("(display-mode: standalone)").matches;
