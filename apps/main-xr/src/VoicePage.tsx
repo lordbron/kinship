@@ -21,6 +21,7 @@ import { isXRMode } from "./xrMode";
 const ELEVENLABS_API_KEY = (import.meta as any).env?.VITE_ELEVENLABS_API_KEY || "";
 const HISTORY_WINDOW_NAME = "elevenlabs-history";
 const COMPANION_WINDOW_NAME = "elevenlabs-companion";
+const MONUMENT_VALLEY_WINDOW_NAME = "monument-valley-scene";
 const TRAILER_SRC = "/windtalkers_trailer.mp4";
 const BOOKS_URL = "https://www.amazon.com/s?k=monument+valley+book";
 const BROADCAST_CHANNEL = "elevenlabs-transcripts";
@@ -57,7 +58,7 @@ export default function VoicePage() {
   const channelRef = useRef<BroadcastChannel | null>(null);
   const feedRef = useRef<HTMLDivElement>(null);
 
-  // XR only: open history + companion as separate spatial scenes
+  // XR only: open history + 3D scenes as separate spatial scenes
   useEffect(() => {
     if (!isXRMode) return;
 
@@ -82,6 +83,20 @@ export default function VoicePage() {
       { type: "volume" },
     );
     window.open("/companion", COMPANION_WINDOW_NAME);
+
+    initScene(
+      MONUMENT_VALLEY_WINDOW_NAME,
+      (cfg) => ({
+        ...cfg,
+        defaultSize: {
+          width: "0.9m",
+          height: "0.72m",
+          depth: "0.9m",
+        },
+      }),
+      { type: "volume" },
+    );
+    window.open("/monument-valley", MONUMENT_VALLEY_WINDOW_NAME);
 
     return () => {
       channelRef.current?.close();

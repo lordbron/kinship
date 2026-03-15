@@ -364,7 +364,22 @@ html.is-spatial {
   background: transparent;
 }
 
+.monument-page-root {
+  min-height: 100svh;
+  padding: 1rem;
+  background: transparent;
+}
+
 .companion-volume {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  min-height: calc(100svh - 2rem);
+  gap: 1rem;
+}
+
+.monument-volume {
   display: flex;
   flex-direction: column;
   align-items: stretch;

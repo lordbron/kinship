@@ -6,6 +6,7 @@ import HistoryPage from "./HistoryPage";
 import TrailerPage from "./TrailerPage";
 import BooksPage from "./BooksPage";
 import CompanionPage from "./CompanionPage";
+import MonumentValleyPage from "./MonumentValleyPage";
 import { isXRMode } from "./xrMode";
 
 // Apply WebSpatial class only when actually running as a standalone PWA
@@ -18,6 +19,7 @@ const isHistory = window.location.pathname === "/history";
 const isTrailer = window.location.pathname === "/trailer";
 const isBooks = window.location.pathname === "/books";
 const isCompanion = window.location.pathname === "/companion";
+const isMonumentValley = window.location.pathname === "/monument-valley";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -29,6 +31,8 @@ createRoot(document.getElementById("root")!).render(
       <BooksPage />
     ) : isCompanion ? (
       <CompanionPage />
+    ) : isMonumentValley ? (
+      <MonumentValleyPage />
     ) : (
       <VoicePage />
     )}
