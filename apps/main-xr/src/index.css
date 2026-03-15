@@ -254,14 +254,33 @@ html.is-spatial {
   border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.desktop-side-panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.desktop-companion-panel {
+  min-height: 420px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+}
+
 .desktop-history-panel {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
+  padding: 1.25rem;
   gap: 1rem;
   min-width: 0;
-  max-width: 600px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 /* ── Shared history styles (desktop inline + XR HistoryPage) ─────────────── */
@@ -364,6 +383,12 @@ html.is-spatial {
   background: transparent;
 }
 
+.companion-page-root--embedded {
+  min-height: auto;
+  height: 100%;
+  padding: 1rem 1rem 0.5rem;
+}
+
 .monument-page-root {
   min-height: 100svh;
   padding: 1rem;
@@ -377,6 +402,10 @@ html.is-spatial {
   justify-content: space-between;
   min-height: calc(100svh - 2rem);
   gap: 1rem;
+}
+
+.companion-volume--embedded {
+  min-height: 100%;
 }
 
 .monument-volume {
@@ -407,11 +436,41 @@ html.is-spatial {
   color: #ffffff;
 }
 
+.companion-status-text {
+  margin: 0.55rem 0 0;
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.companion-error-text {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: #ffd6d6;
+}
+
 .sheep-canvas-shell {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
+  border-radius: 22px;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    opacity 180ms ease;
+}
+
+.sheep-canvas-shell--interactive {
+  cursor: pointer;
+}
+
+.sheep-canvas-shell--interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+.sheep-canvas-shell--disabled {
+  opacity: 0.72;
 }
 
 .sheep-model {
@@ -424,6 +483,34 @@ html.is-spatial {
 .sheep-model canvas {
   width: 100%;
   height: 100%;
+}
+
+@media (max-width: 900px) {
+  .voice-page-desktop {
+    flex-direction: column;
+  }
+
+  .voice-page-desktop .voice-mic-panel {
+    flex: none;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .desktop-side-panel {
+    padding-top: 0;
+  }
+
+  .desktop-companion-panel {
+    min-height: 360px;
+  }
+
+  .desktop-history-panel {
+    min-height: 280px;
+  }
+
+  .sheep-model {
+    min-height: 280px;
+  }
 }
 
 /* ── XR TrailerPage layout ───────────────────────────────────────────────── */

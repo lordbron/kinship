@@ -17,6 +17,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { initScene } from "@webspatial/react-sdk";
 import { isXRMode } from "./xrMode";
+import CompanionPage from "./CompanionPage";
 
 const ELEVENLABS_API_KEY = (import.meta as any).env?.VITE_ELEVENLABS_API_KEY || "";
 const HISTORY_WINDOW_NAME = "elevenlabs-history";
@@ -339,41 +340,47 @@ export default function VoicePage() {
     );
   }
 
-  // Desktop: mic panel + inline history side by side
+  // Desktop/mobile browser: mic panel + inline companion + transcript history
   return (
     <div className="voice-page-desktop">
       {micPanel}
 
-      <div className="desktop-history-panel">
-        <div className="history-header">
-          <h2 className="history-title">Transcript History</h2>
-          {transcripts.length > 0 && (
-            <button className="history-clear-btn" onClick={() => setTranscripts([])}>
-              Clear
-            </button>
-          )}
+      <div className="desktop-side-panel">
+        <div className="desktop-companion-panel">
+          <CompanionPage embedded />
         </div>
 
-        {transcripts.length === 0 ? (
-          <div className="history-empty">
-            <p>Transcripts will appear here</p>
+        <div className="desktop-history-panel">
+          <div className="history-header">
+            <h2 className="history-title">Transcript History</h2>
+            {transcripts.length > 0 && (
+              <button className="history-clear-btn" onClick={() => setTranscripts([])}>
+                Clear
+              </button>
+            )}
           </div>
-        ) : (
-          <div ref={feedRef} className="history-feed">
-            {transcripts.map((t) => (
-              <div key={t.id} className="history-card">
-                <span className="history-card-time">
-                  {new Date(t.ts).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                  })}
-                </span>
-                <p className="history-card-text">{t.text}</p>
-              </div>
-            ))}
-          </div>
-        )}
+
+          {transcripts.length === 0 ? (
+            <div className="history-empty">
+              <p>Transcripts will appear here</p>
+            </div>
+          ) : (
+            <div ref={feedRef} className="history-feed">
+              {transcripts.map((t) => (
+                <div key={t.id} className="history-card">
+                  <span className="history-card-time">
+                    {new Date(t.ts).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      second: "2-digit",
+                    })}
+                  </span>
+                  <p className="history-card-text">{t.text}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
